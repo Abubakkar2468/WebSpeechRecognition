@@ -10,7 +10,8 @@ setTimeout(() => {
 
 
 
-    let mic = document.querySelector("#circlein")
+    let mic = document.querySelector("#circlein");
+    let start_btn = document.getElementById('start_btn');
     let speechToText = "";
 
     const xhr = new XMLHttpRequest();
@@ -51,6 +52,7 @@ setTimeout(() => {
 
         // create paragraph while speaking
         let p = document.createElement("div");
+        p.classList.add("command");
         let command = document.querySelector(".content");
         p.innerHTML = interimTranscript;
         command.append(p);
@@ -65,8 +67,9 @@ setTimeout(() => {
     });
 
 
-    mic.addEventListener("click", () => {
+    start_btn.addEventListener("click", () => {
         recognition.start();
+        console.log("listening ======");
         mic.style.backgroundColor = "#6BD6E1"
     })
 
