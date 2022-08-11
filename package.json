@@ -1,0 +1,21 @@
+{
+    "name": "speech_app",
+    "version": "1.0.0",
+    "description": "Speech Recognition app",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "node index.js",
+      "server-debug": "nodemon --inspect index.js"
+    },
+    "author": "Abubakkar Mujeeb",
+    "license": "ISC",
+    "dependencies": {
+      "cors": "^2.8.5",
+      "express": "^4.18.1"
+    },
+    "devDependencies": {
+      "nodemon": "^2.0.19"
+    }
+  }
+  
