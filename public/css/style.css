@@ -52,6 +52,7 @@ button {
     width: 100%;
     height: calc(100% - 165px);
     background-color: #000;
+    overflow: auto;
 }
 
 .command, .reply {

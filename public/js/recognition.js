@@ -23,7 +23,15 @@ setTimeout(() => {
             console.log(transcript, e.result)
             if (e.results[i].isFinal) {
                 speechToText += transcript;
-                if ((i + 1) == e.results.length) fetchResponseToSpeech(xhr, url, transcript.toLowerCase());
+                if ((i + 1) == e.results.length) {
+                    // create paragraph while speaking
+                    let p = document.createElement("div");
+                    p.classList.add("command");
+                    let command = document.querySelector(".content");
+                    p.innerHTML = transcript;
+                    command.append(p);
+                    fetchResponseToSpeech(xhr, url, transcript.toLowerCase());
+                }
             } else {
                 interimTranscript += transcript;
                 if ((i + 1) == e.results.length) console.log("not final", transcript);
@@ -94,11 +102,11 @@ function fetchResponseToSpeech(xhr, url, transcript) {
             alert(`Error ${xhr.status}: ${xhr.statusText}`); // e.g. 404: Not Found
         } else { // show the result
             console.log(xhr.response);
-            let span = document.createElement("div");
-            span.classList.add('reply');
+            let pre = document.createElement("pre");
+            pre.classList.add('reply');
             let response = document.querySelector(".content");
-            span.innerHTML = xhr.response['result'];
-            response.append(span);
+            pre.innerHTML = xhr.response['result'];
+            response.append(pre);
 
             // document.querySelector(".reply").innerHTML = xhr.response['result'];
             // alert(`Done, got ${xhr.response} bytes`); // response is the server response
