@@ -42,7 +42,8 @@ app.get('/speech/:id', async(req, res) => {
 
     const obj = {};
     speech_word = speech_word.trim();
-
+    
+    // create application map if its not created
     if (!Object.keys(applicationMap).length) {
         try {
             let applicationsStr =  await executeCmd("ls /usr/share/applications | awk -F '.desktop' ' { print $1}' -");
@@ -58,9 +59,15 @@ app.get('/speech/:id', async(req, res) => {
         }    
     }
     console.log(commands[speech_word], speech_word);
-    if (commands[speech_word]) {
+
+    // commands keys list
+    const commandsKeyList = Object.keys(commands);
+    const position = commandsKeyList.findIndex((x) => x.includes(speech_word));
+
+    if (commands[speech_word] || position > -1) {
         try {
-            obj['result'] = await executeCmd(commands[speech_word]);
+            const cmd = position > -1 ? commandsKeyList[position] : speech_word;
+            obj['result'] = await executeCmd(commands[cmd]);
         } catch(e) {
             console.log(e);
             obj['result'] = e;
